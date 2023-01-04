@@ -1,6 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
 import {
-  BaseEntity,
   BeforeInsert,
   Column,
   Entity,
@@ -9,9 +8,11 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
+import BaseEntity from "./Entity";
 import Sub from "./Sub";
 import User from "./User";
 import Vote from "./Vote";
+import { makeId, slugify } from "../utils/helper";
 
 @Entity("posts")
 export default class Post extends BaseEntity {
@@ -60,7 +61,7 @@ export default class Post extends BaseEntity {
   }
 
   @Expose() get voteScore(): number {
-    return this.votes?.reduce((memo, cur) => memo + cur.value || 0, 0);
+    return this.votes?.reduce((memo, cur) => memo + (cur.value || 0), 0);
   }
 
   protected userVote: number;

@@ -36,7 +36,7 @@ export default class Sub extends BaseEntity {
   @JoinColumn({ name: "username", referencedColumnName: "username" })
   user: User;
 
-  @OneToMany(() => Post, (post) => post.sub)
+  @OneToMany(() => Post, (post) => post.subs)
   posts: Post[];
 
   @Expose()
