@@ -2,6 +2,7 @@ import { Expose } from "class-transformer";
 import {
   BaseEntity,
   Column,
+  Entity,
   Index,
   JoinColumn,
   ManyToOne,
@@ -10,6 +11,7 @@ import {
 import Post from "./Post";
 import User from "./User";
 
+@Entity("sub")
 export default class Sub extends BaseEntity {
   @Index()
   @Column({ unique: true })

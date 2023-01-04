@@ -9,6 +9,8 @@ import {
   Index,
   OneToMany,
 } from "typeorm";
+import Post from "./Post";
+import Vote from "./Vote";
 @Entity("users")
 export default class User extends BaseEntity {
   @Index()
@@ -27,7 +29,7 @@ export default class User extends BaseEntity {
   @Length(6, 255, { message: "비밀번호는 6자리 이상이어야 합니다" })
   password: string;
 
-  @OneToMany(() => post, (port) => postMessage.user)
+  @OneToMany(() => Post, (port) => postMessage.user)
   posts: Post[];
 
   @OneToMany(() => Vote, (vote) => vote.user)
