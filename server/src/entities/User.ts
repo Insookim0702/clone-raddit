@@ -1,14 +1,9 @@
 import { Exclude } from "class-transformer";
 import { IsEmail, Length } from "class-validator";
 import bcrypt from "bcryptjs";
-import {
-  BaseEntity,
-  BeforeInsert,
-  Column,
-  Entity,
-  Index,
-  OneToMany,
-} from "typeorm";
+import { BeforeInsert, Column, Entity, Index, OneToMany } from "typeorm";
+
+import BaseEntity from "./Entity";
 import Post from "./Post";
 import Vote from "./Vote";
 @Entity("users")
@@ -32,7 +27,7 @@ export default class User extends BaseEntity {
   @OneToMany(() => Post, (port) => port.user)
   posts: Post[];
 
-  @OneToMany(() => Vote, (vote) => vote.user)
+  @OneToMany(() => Vote, (vote) => vote.username)
   votes: Vote[];
 
   @BeforeInsert()

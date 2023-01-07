@@ -22,6 +22,9 @@ export default class Comments extends BaseEntity {
   identifier: string;
 
   @Column({ nullable: true })
+  commentId: number;
+
+  @Column({ nullable: true })
   body: string;
 
   @Column()
@@ -40,9 +43,6 @@ export default class Comments extends BaseEntity {
   @Exclude()
   @OneToMany(() => Vote, (vote) => vote.comment)
   votes: Vote[];
-
-  @Column({ nullable: true })
-  commentId: number;
 
   protected userVote: number;
 
