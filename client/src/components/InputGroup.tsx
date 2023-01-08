@@ -18,10 +18,10 @@ const InputGroup: FC<Props> = ({
   setValue,
 }) => {
   return (
-    <div>
+    <div className="mb-2">
       <input
         type={type}
-        className="w-full p-3 transition duration-200 border border-gray-400 bg-gray-50 focus:bg-white hover:bg-white"
+        className="w-full p-3 transition duration-200 border border-gray-400 bg-gray-50 focus:bg-white hover:bg-white rounded"
         placeholder={placeholder}
         value={value}
         onChange={(e) => setValue(e.target.value)}
