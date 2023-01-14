@@ -9,7 +9,7 @@ interface params {
 }
 export const submitSignup = async ({ email, password, username }: params) => {
   try {
-    const res = await request.post("/auth/register", {
+    await request.post("/auth/register", {
       email,
       password,
       username,

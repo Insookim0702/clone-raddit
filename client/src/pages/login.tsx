@@ -1,28 +1,21 @@
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import InputGroup from "../components/InputGroup";
-import { submitSignup } from "../axios/signup";
-import { useRouter } from "next/router";
+import { submitLogin } from "../axios/login";
 
-const Signup = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
   const [error, setError] = useState<{
-    email: string;
     username: string;
     password: string;
-    checkPassword: string;
-  }>({ email: "", username: "", password: "", checkPassword: "" });
+  }>({ username: "", password: "" });
 
-  // 회원가입 요청
-  const handleSignup = async (e: FormEvent) => {
+  // 로그인 요청
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await submitSignup({ email, username, password });
-      router.push("/login");
+      await submitLogin({ username, password });
     } catch (err: any) {
       console.error(err);
       // 에러 메시지 세팅
@@ -30,7 +23,6 @@ const Signup = () => {
         setError((prev) => {
           return {
             ...prev,
-            email: err?.response?.data.email,
             username: err?.response?.data.username,
             password: err?.response?.data.password,
           };
@@ -40,14 +32,8 @@ const Signup = () => {
   };
   return (
     <div className="bg-white max-w-[300px] mx-auto">
-      <h1 className="font-bold text-2xl">회원가입</h1>
+      <h1 className="font-bold text-2xl">로그인</h1>
       <form action="">
-        <InputGroup
-          placeholder={"이메일"}
-          value={email}
-          error={error.email}
-          setValue={setEmail}
-        />
         <InputGroup
           placeholder={"유저 닉네임"}
           value={username}
@@ -61,27 +47,18 @@ const Signup = () => {
           error={error.password}
           setValue={setPassword}
         />
-        <InputGroup
-          placeholder={"비밀번호 확인"}
-          type={"password"}
-          value={checkPassword}
-          error={error.checkPassword}
-          setValue={setCheckPassword}
-        />
+
         <button
           className="w-full mt-4 bg-gray-400 ml-1   text-white uppercase rounded py-2"
-          onClick={handleSignup}
+          onClick={handleLogin}
         >
-          회원가입
+          로그인
         </button>
       </form>
-      <small>
-        이미 가입하셨나요?
-        <Link href="/login" className="text-blue-300">
-          로그인
-        </Link>
-      </small>
+      <Link href="/signup">
+        <small className="underline">회원가입</small>
+      </Link>
     </div>
   );
 };
-export default Signup;
+export default Login;
