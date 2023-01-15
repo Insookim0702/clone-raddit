@@ -2,20 +2,32 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import InputGroup from "../components/InputGroup";
 import { submitLogin } from "../axios/login";
+import { useAuthDispatch, useAuthState } from "../context/auth";
+import { useRouter } from "next/router";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const [username, setUsername] = useState("비주기");
+  const [password, setPassword] = useState("123123");
   const [error, setError] = useState<{
     username: string;
     password: string;
   }>({ username: "", password: "" });
+  const dispatch = useAuthDispatch();
+  const context = useAuthState();
 
   // 로그인 요청
   const handleLogin = async (e: FormEvent) => {
+    console.log("여긴 로그인페이지");
+
     e.preventDefault();
     try {
-      await submitLogin({ username, password });
+      const res = await submitLogin({ username, password });
+      console.log("전", context);
+      await dispatch("LOGIN", res.data.user);
+      console.log("후", context);
+      // //
+      //       router.push("/");
     } catch (err: any) {
       console.error(err);
       // 에러 메시지 세팅
