@@ -18,16 +18,11 @@ const Login = () => {
 
   // 로그인 요청
   const handleLogin = async (e: FormEvent) => {
-    console.log("여긴 로그인페이지");
-
     e.preventDefault();
     try {
       const res = await submitLogin({ username, password });
-      console.log("전", context);
       await dispatch("LOGIN", res.data.user);
-      console.log("후", context);
-      // //
-      //       router.push("/");
+      router.push("/");
     } catch (err: any) {
       console.error(err);
       // 에러 메시지 세팅

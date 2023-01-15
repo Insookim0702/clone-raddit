@@ -6,6 +6,10 @@ interface State {
   user: User | undefined;
   isLoading: boolean;
 }
+interface Action {
+  type: string;
+  payload: any;
+}
 
 const StateContext = createContext<State>({
   authenticated: false,
@@ -15,15 +19,10 @@ const StateContext = createContext<State>({
 
 const DispatchContext = createContext<any>(null);
 
-interface Action {
-  type: string;
-  payload: any;
-}
 const reducer = (state: State, { type, payload }: Action) => {
   switch (type) {
     case "LOGIN":
       console.log("로그인");
-
       return {
         ...state,
         authenticated: true,
@@ -51,8 +50,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     authenticated: false,
     isLoading: true,
   });
-
-  console.log(state);
 
   const dispatch = (type: string, payload?: any) => {
     defaultDispatch({ type, payload });
