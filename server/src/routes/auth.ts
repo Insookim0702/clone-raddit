@@ -67,7 +67,7 @@ const login = async (req: Request, res: Response) => {
 const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
   let errors: any = {};
-  // // 빈 값 검증
+  // 빈 값 검증
   // if (!email) {
   //   errors.email = "이메일을 작성해주세요.";
   //   return res.status(400).json(errors);

@@ -13,7 +13,7 @@ const Create: FC<Props> = (/* props */) => {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState<any>("");
+  const [errors, setErrors] = useState<any>({});
 
   const handleCreate = async () => {
     try {
@@ -21,6 +21,8 @@ const Create: FC<Props> = (/* props */) => {
       router.push(`/r/${res?.data.name}`);
     } catch (error: any) {
       console.error(error);
+      console.log(error.response.data);
+
       setErrors(error.response.data);
     }
   };
@@ -30,11 +32,13 @@ const Create: FC<Props> = (/* props */) => {
       <h1 className="font-bold text-2xl">커뮤니티 만들기</h1>
       <div className="mb-5">
         <h2 className="font-bold text-[18px]">이름</h2>
-        <small className="text-gray-400 mb-[10px]">커뮤니티 이름</small>
+        <small className="text-gray-400 mb-[10px]">
+          커뮤니티 이름입니다. 변경 불가합니다.
+        </small>
         <InputGroup
           placeholder={"커뮤니티 이름"}
           value={name}
-          error={errors.name}
+          error={errors?.name || ""}
           setValue={setName}
         />
       </div>
@@ -44,7 +48,7 @@ const Create: FC<Props> = (/* props */) => {
         <InputGroup
           placeholder={"주제"}
           value={title}
-          error={errors.title}
+          error={errors?.title || ""}
           setValue={setTitle}
         />
       </div>
@@ -54,13 +58,15 @@ const Create: FC<Props> = (/* props */) => {
         <InputGroup
           placeholder={"커뮤니티 설명"}
           value={description}
-          error={errors.description}
+          error={errors?.description || ""}
           setValue={setDescription}
         />
       </div>
 
+      <p>{errors?.auth}</p>
+
       <button
-        className="bg-blue-500 rounded p-2 text-white"
+        className="bg-blue-500 rounded p-2 text-white w-full font-semibold"
         onClick={handleCreate}
       >
         커뮤니티 만들기

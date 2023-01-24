@@ -8,16 +8,10 @@ interface params {
 }
 export const submitLogin = async ({ password, username }: params) => {
   try {
-    return await request.post(
-      "/auth/login",
-      {
-        password,
-        username,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    return await request.post("/auth/login", {
+      password,
+      username,
+    });
   } catch (error: any) {
     throw error;
   }
